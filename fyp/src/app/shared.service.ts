@@ -7,5 +7,5 @@ import { HttpClient } from '@angular/common/http'
 export class SharedService {
   readonly APIUrl = "http://127.0.0.1:8000";
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 }
