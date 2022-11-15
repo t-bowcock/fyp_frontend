@@ -9,24 +9,28 @@ import { ManageComponent } from './manage/manage.component';
 import { QueryService } from './query/query.service';
 import { ManageService } from './manage/manage.service';
 import { SharedService } from './shared.service';
+import { DemoComponent } from './demo/demo.component';
+import { DemoService } from './demo/demo.service';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    QueryComponent,
-    ManageComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
-  providers: [
-    QueryService,
-    ManageService,
-    SharedService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        QueryComponent,
+        ManageComponent,
+        DemoComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule
+    ],
+    providers: [
+        QueryService,
+        ManageService,
+        SharedService,
+        DemoService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
