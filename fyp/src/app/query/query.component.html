@@ -1,1 +1,26 @@
-<p>query works!</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Quote</th>
+            <th>Description</th>
+            <th>Quality</th>
+            <th>Unlock</th>
+            <th>Effects</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of Items">
+            <td>{{ item.name }}</td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.quote }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.quality }}</td>
+            <td>{{ item.unlock }}</td>
+            <td>{{ item.effects }}</td>
+            <td>{{ item.notes }}</td>
+        </tr>
+    </tbody>
+</table>

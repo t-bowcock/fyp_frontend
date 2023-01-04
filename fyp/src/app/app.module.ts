@@ -11,8 +11,7 @@ import { ManageComponent } from './manage/manage.component';
 import { QueryService } from './query/query.service';
 import { ManageService } from './manage/manage.service';
 import { SharedService } from './shared.service';
-import { DemoComponent } from './demo/demo.component';
-import { DemoService } from './demo/demo.service';
+
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { DemoService } from './demo/demo.service';
         AppComponent,
         QueryComponent,
         ManageComponent,
-        DemoComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +30,6 @@ import { DemoService } from './demo/demo.service';
         QueryService,
         ManageService,
         SharedService,
-        DemoService
     ],
     bootstrap: [AppComponent]
 })

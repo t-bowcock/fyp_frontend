@@ -3,16 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { QueryComponent } from './query/query.component';
 import { ManageComponent } from './manage/manage.component';
-import { DemoComponent } from './demo/demo.component';
 
 const routes: Routes = [
-  { path: '', component: QueryComponent },
-  { path: 'management', component: ManageComponent },
-  { path: 'demo', component: DemoComponent }
+    { path: 'isaac/items', component: QueryComponent },
+    { path: 'management', component: ManageComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
