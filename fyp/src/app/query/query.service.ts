@@ -15,4 +15,20 @@ export class QueryService extends SharedService {
     getItemList(): Observable<any> {
         return this.http.get<any[]>(this.APIUrl + "/isaac/items");
     }
+
+    getTrinketList(): Observable<any> {
+        return this.http.get<any[]>(this.APIUrl + "/isaac/trinkets");
+    }
+
+    getCharacterList(): Observable<any> {
+        return this.http.get<any[]>(this.APIUrl + "/isaac/characters");
+    }
+
+    getSynergyList(): Observable<any> {
+        return this.http.get<any[]>(this.APIUrl + "/isaac/synergies");
+    }
+
+    getInteractionList(): Observable<any> {
+        return this.http.get<any[]>(this.APIUrl + "/isaac/interactions");
+    }
 }
