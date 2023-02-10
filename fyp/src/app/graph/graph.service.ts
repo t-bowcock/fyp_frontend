@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { SharedService } from '../shared.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class ManageService extends SharedService {
+export class GraphService extends SharedService {
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+    constructor(http: HttpClient) {
+        super(http);
+    }
 }

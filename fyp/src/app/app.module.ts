@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 import { QueryComponent } from './query/query.component';
-import { ManageComponent } from './manage/manage.component';
 import { QueryService } from './query/query.service';
-import { ManageService } from './manage/manage.service';
 import { SharedService } from './shared.service';
+import { GraphComponent } from './graph/graph.component';
+import { GraphService } from './graph/graph.service';
 
 
 
@@ -20,7 +21,7 @@ import { SharedService } from './shared.service';
     declarations: [
         AppComponent,
         QueryComponent,
-        ManageComponent,
+        GraphComponent,
     ],
     imports: [
         BrowserModule,
@@ -29,10 +30,11 @@ import { SharedService } from './shared.service';
         HttpClientModule,
         MatTableModule,
         MatTabsModule,
+        NgxGraphModule
     ],
     providers: [
         QueryService,
-        ManageService,
+        GraphService,
         SharedService,
     ],
     bootstrap: [AppComponent]

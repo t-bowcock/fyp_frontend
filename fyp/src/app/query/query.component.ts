@@ -1,47 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QueryService } from './query.service';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface Item {
-    name: String;
-    id: Number;
-    quote: String;
-    description: String;
-    quality: Number;
-    unlock: String;
-    effects: String;
-    notes: String;
-}
-
-export interface Trinket {
-    name: String;
-    id: Number;
-    pool: String;
-    quote: String;
-    description: String;
-    tags: String;
-    unlock: String;
-    effects: String;
-    notes: String;
-}
-
-export interface Character {
-    name: String;
-    id: Number;
-}
-
-export interface Synergy {
-    source: Number;
-    destination: Number;
-    description: String;
-}
-
-export interface Interaction {
-    source: Number;
-    destination: Number;
-    description: String;
-}
-
+import { Item, Trinket, Character, Synergy, Interaction } from '../interfaces';
 @Component({
     selector: 'app-query',
     templateUrl: './query.component.html',
