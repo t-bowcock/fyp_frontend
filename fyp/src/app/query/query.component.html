@@ -19,7 +19,9 @@
 
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef> Description </th>
-                <td mat-cell *matCellDef="let item"> {{item.description}} </td>
+                <td mat-cell *matCellDef="let item">
+                    <div [innerHTML]="item.description"></div>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="quality">
@@ -34,12 +36,16 @@
 
             <ng-container matColumnDef="effects">
                 <th mat-header-cell *matHeaderCellDef> Effects </th>
-                <td mat-cell *matCellDef="let item"> {{item.effects}} </td>
+                <td mat-cell *matCellDef="let item">
+                    <div [innerHTML]="item.effects"></div>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="notes">
                 <th mat-header-cell *matHeaderCellDef> Notes </th>
-                <td mat-cell *matCellDef="let item"> {{item.notes}} </td>
+                <td mat-cell *matCellDef="let item">
+                    <div [innerHTML]="item.notes"></div>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="itemColumns"></tr>
@@ -130,7 +136,9 @@
 
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef> Description </th>
-                <td mat-cell *matCellDef="let synergy"> {{synergy.description}} </td>
+                <td mat-cell *matCellDef="let synergy">
+                    <div [innerHTML]="synergy.description"></div>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="synergyColumns"></tr>
@@ -151,7 +159,9 @@
 
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef> Description </th>
-                <td mat-cell *matCellDef="let interaction"> {{interaction.description}} </td>
+                <td mat-cell *matCellDef="let interaction">
+                    <div [innerHTML]="interaction.description"></div>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="synergyColumns"></tr>
