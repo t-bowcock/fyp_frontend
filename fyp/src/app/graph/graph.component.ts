@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GraphService } from './graph.service';
-import { Edge, Node } from '@swimlane/ngx-graph';
-import { Item, Trinket, Character, Synergy, Interaction } from '../interfaces';
+import { Component, OnInit } from '@angular/core';
+import cytoscape from 'cytoscape';
+import euler from 'cytoscape-euler';
+
+cytoscape.use(euler);
 
 @Component({
     selector: 'app-graph',
@@ -9,45 +10,53 @@ import { Item, Trinket, Character, Synergy, Interaction } from '../interfaces';
     styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
-    @Input() Items: Item[] = [];
-    @Input() Interactions: Interaction[] = [];
 
-    public nodes: Node[] = [];
-    public links: Edge[] = [];
 
-    constructor(private service: GraphService) {
-        this.service.getItemList().subscribe(data => {
-            this.Items = data["items"];
-        })
-
-        this.service.getInteractionList().subscribe(data => {
-            this.Interactions = data["interactions"];
-        })
-    }
+    constructor() { }
 
     ngOnInit(): void {
-        for (const item of this.Items) {
-            const node: Node = {
-                id: String(item.id),
-                label: item.name,
-                data: {
-                    description: item.description
-                }
-            };
-            this.nodes.push(node);
-        }
+        var cy = cytoscape({
+            container: document.getElementById('cy'), // container to render in
 
-        for (const interaction of this.Interactions) {
-            const edge: Edge = {
-                source: String(interaction.source),
-                target: String(interaction.destination),
-                label: '',
-                data: {
-                    description: interaction.description
+            elements: [ // list of graph elements to start with
+                { // node a
+                    data: { id: 'a' }
+                },
+                { // node b
+                    data: { id: 'b' }
+                },
+                { // edge ab
+                    data: { id: 'ab', source: 'a', target: 'b' }
                 }
-            };
-            this.links.push(edge);
-        }
+            ],
+
+            style: [ // the stylesheet for the graph
+                {
+                    selector: 'node',
+                    style: {
+                        'background-color': '#666',
+                        'label': 'data(id)'
+                    }
+                },
+
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ccc',
+                        'target-arrow-color': '#ccc',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier'
+                    }
+                }
+            ],
+
+            layout: {
+                name: 'grid',
+                rows: 1
+            }
+
+        });
     }
 
 }

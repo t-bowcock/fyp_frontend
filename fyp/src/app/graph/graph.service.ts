@@ -1,13 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SharedService } from '../shared.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class GraphService extends SharedService {
+export class GraphService {
 
-    constructor(http: HttpClient) {
-        super(http);
-    }
+  constructor() { }
 }

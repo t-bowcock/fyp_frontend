@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 import { QueryComponent } from './query/query.component';
 import { QueryService } from './query/query.service';
@@ -30,7 +29,6 @@ import { GraphService } from './graph/graph.service';
         HttpClientModule,
         MatTableModule,
         MatTabsModule,
-        NgxGraphModule
     ],
     providers: [
         QueryService,
