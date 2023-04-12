@@ -9,6 +9,10 @@ export interface Item {
     notes: string;
 }
 
+export interface Node {
+    id: number
+}
+
 export interface Trinket {
     name: string;
     id: number;

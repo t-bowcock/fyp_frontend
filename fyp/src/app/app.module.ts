@@ -14,8 +14,6 @@ import { SharedService } from './shared.service';
 import { GraphComponent } from './graph/graph.component';
 import { GraphService } from './graph/graph.service';
 
-
-
 @NgModule({
     declarations: [
         AppComponent,
