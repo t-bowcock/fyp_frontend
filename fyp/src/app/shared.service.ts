@@ -29,4 +29,8 @@ export class SharedService {
     getInteractionList(): Observable<any> {
         return this.http.get<any[]>(this.APIUrl + "/isaac/interactions");
     }
+
+    getAll(): Observable<any> {
+        return this.http.get<any[]>(this.APIUrl + "/isaac/all")
+    }
 }

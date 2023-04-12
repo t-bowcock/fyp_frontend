@@ -27,23 +27,35 @@ export class GraphComponent implements OnInit {
             (data) => {
                 this.Items = data["items"];
             }));
-        // users => this.users = users,
-        // error => this.errorMsg = <any>error);
+    }
+
+    getAll() {
+        return this.service.getAll().pipe(map(
+            (data) => {
+                console.log(data)
+                this.Items = data["items"];
+                this.Trinkets = data["trinkets"];
+                this.Characters = data["characters"];
+                this.Synergies = data["synergies"];
+                this.Interactions = data["interactions"];
+            }));
     }
 
     ngOnInit(): void {
-        this.getItems().subscribe(_ => {
+        console.log("getting data")
+        this.getAll().subscribe(_ => {
+            var combined_lists = this.Items.concat(this.Trinkets, this.Characters, this.Synergies, this.Interactions)
             var cy = cytoscape({
                 container: document.getElementById('cy'), // container to render in
 
-                elements: this.Items,
+                elements: combined_lists,
 
                 style: [ // the stylesheet for the graph
                     {
                         selector: 'node',
                         style: {
                             'background-color': '#666',
-                            'label': 'data(id)'
+                            'label': 'data(name)'
                         }
                     },
 
@@ -66,6 +78,7 @@ export class GraphComponent implements OnInit {
 
             });
         });
+
     }
 
 }
