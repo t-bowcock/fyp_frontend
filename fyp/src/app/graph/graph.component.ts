@@ -71,11 +71,6 @@ export class GraphComponent implements OnInit {
                     }
                 ],
 
-                layout: {
-                    name: 'grid',
-                    rows: 1
-                }
-
             });
         });
 
