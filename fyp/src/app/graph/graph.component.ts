@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import cytoscape from 'cytoscape';
-import euler from 'cytoscape-euler';
+import fcose from 'cytoscape-fcose';
 import { GraphService } from './graph.service';
 import { Item, Trinket, Character, Synergy, Interaction } from '../interfaces';
 import { map } from 'rxjs/operators';
+import elements from './elements';
 
-cytoscape.use(euler);
+cytoscape.use(fcose);
 
 @Component({
     selector: 'app-graph',
@@ -16,64 +17,50 @@ export class GraphComponent implements OnInit {
 
 
     constructor(private service: GraphService) { }
-    private Items: any[] = [];
-    private Trinkets: Trinket[] = [];
-    private Characters: Character[] = [];
-    private Synergies: Synergy[] = [];
-    private Interactions: Interaction[] = [];
-
-    getItems() {
-        return this.service.getItemList().pipe(map(
-            (data) => {
-                this.Items = data["items"];
-            }));
-    }
+    private graphData = [];
 
     getAll() {
         return this.service.getAll().pipe(map(
             (data) => {
-                console.log(data)
-                this.Items = data["items"];
-                this.Trinkets = data["trinkets"];
-                this.Characters = data["characters"];
-                this.Synergies = data["synergies"];
-                this.Interactions = data["interactions"];
+                console.log(data);
+                this.graphData = data
             }));
     }
 
     ngOnInit(): void {
-        console.log("getting data")
-        this.getAll().subscribe(_ => {
-            var combined_lists = this.Items.concat(this.Trinkets, this.Characters, this.Synergies, this.Interactions)
-            var cy = cytoscape({
-                container: document.getElementById('cy'), // container to render in
+        var cy = cytoscape({
+            container: document.getElementById('cy'), // container to render in
 
-                elements: combined_lists,
+            elements: elements,
 
-                style: [ // the stylesheet for the graph
-                    {
-                        selector: 'node',
-                        style: {
-                            'background-color': '#666',
-                            'label': 'data(name)'
-                        }
-                    },
-
-                    {
-                        selector: 'edge',
-                        style: {
-                            'width': 3,
-                            'line-color': '#ccc',
-                            'target-arrow-color': '#ccc',
-                            'target-arrow-shape': 'triangle',
-                            'curve-style': 'bezier'
-                        }
+            style: [ // the stylesheet for the graph
+                {
+                    selector: 'node',
+                    style: {
+                        'background-color': '#666',
+                        'label': 'data(name)'
                     }
-                ],
+                },
 
-            });
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ccc',
+                        'target-arrow-color': '#ccc',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier'
+                    }
+                }
+            ],
+
+            layout: {
+                name: "fcose"
+            }
+
         });
 
-    }
 
+
+    }
 }
