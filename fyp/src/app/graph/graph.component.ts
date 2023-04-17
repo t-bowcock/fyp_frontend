@@ -5,6 +5,7 @@ import { GraphService } from './graph.service';
 import { Item, Trinket, Character, Synergy, Interaction } from '../interfaces';
 import { map } from 'rxjs/operators';
 import elements from './elements';
+import style from './style';
 
 cytoscape.use(fcose);
 
@@ -33,26 +34,7 @@ export class GraphComponent implements OnInit {
 
             elements: elements,
 
-            style: [ // the stylesheet for the graph
-                {
-                    selector: 'node',
-                    style: {
-                        'background-color': '#666',
-                        'label': 'data(name)'
-                    }
-                },
-
-                {
-                    selector: 'edge',
-                    style: {
-                        'width': 3,
-                        'line-color': '#ccc',
-                        'target-arrow-color': '#ccc',
-                        'target-arrow-shape': 'triangle',
-                        'curve-style': 'bezier'
-                    }
-                }
-            ],
+            style: style,
 
             layout: {
                 name: "fcose"
