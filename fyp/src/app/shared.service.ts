@@ -14,6 +14,10 @@ export class SharedService {
         return this.http.get<any[]>(this.APIUrl + "/isaac/items");
     }
 
+    getItem(id): Observable<any> {
+        return this.http.get<any[]>(this.APIUrl + "/isaac/items/" + id);
+    }
+
     getTrinketList(): Observable<any> {
         return this.http.get<any[]>(this.APIUrl + "/isaac/trinkets");
     }

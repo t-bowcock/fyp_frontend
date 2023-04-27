@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import { GraphService } from './graph.service';
-import { Item, Trinket, Character, Synergy, Interaction } from '../interfaces';
 import { map } from 'rxjs/operators';
-import elements from './elements';
 import style from './style';
 
 cytoscape.use(fcose);
@@ -28,19 +26,37 @@ export class GraphComponent implements OnInit {
             }));
     }
 
+    getItem(id) {
+        return this.service.getItem(id).pipe(map(
+            (data) => {
+                console.log(data)
+            }));
+    }
+
     ngOnInit(): void {
-        var cy = cytoscape({
-            container: document.getElementById('cy'), // container to render in
+        var cy;
+        this.getAll().subscribe(_ => {
+            cy = cytoscape({
+                container: document.getElementById('cy'), // container to render in
 
-            elements: elements,
+                elements: this.graphData,
 
-            style: style,
+                style: style,
 
-            layout: {
-                name: "fcose"
-            }
+                layout: {
+                    name: "fcose",
+                }
 
+            });
+            cy.bind('click', 'node', function (evt) {
+                console.log('node clicked: ', evt.target.id());
+                this.getItem(evt.target.id()).subscribe(_ => {
+                    console.log("test")
+                });
+            });
         });
+
+
 
 
 
