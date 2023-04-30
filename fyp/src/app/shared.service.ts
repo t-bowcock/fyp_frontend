@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +15,14 @@ export class SharedService {
         return this.http.get<any[]>(this.APIUrl + "/isaac/items");
     }
 
-    getItem(id): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/items/" + id);
+    getItem(id): Promise<any> {
+        return new Promise<any>(resolve => {
+            this.http.get<any[]>(this.APIUrl + "/isaac/items/" + id).subscribe(
+                (data) => {
+                    resolve(data);
+                }
+            );
+        });
     }
 
     getTrinketList(): Observable<any> {
@@ -34,7 +41,13 @@ export class SharedService {
         return this.http.get<any[]>(this.APIUrl + "/isaac/interactions");
     }
 
-    getAll(): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/all")
+    getAll(): Promise<any> {
+        return new Promise<any>(resolve => {
+            this.http.get<any[]>(this.APIUrl + "/isaac/all").subscribe(
+                (data) => {
+                    resolve(data);
+                }
+            );
+        });
     }
 }

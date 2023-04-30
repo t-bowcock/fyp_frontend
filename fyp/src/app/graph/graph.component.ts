@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import { GraphService } from './graph.service';
-import { map } from 'rxjs/operators';
 import style from './style';
 
 cytoscape.use(fcose);
@@ -16,46 +15,36 @@ export class GraphComponent implements OnInit {
 
 
     constructor(private service: GraphService) { }
-    private graphData = [];
 
-    getAll() {
-        return this.service.getAll().pipe(map(
-            (data) => {
-                console.log(data);
-                this.graphData = data
-            }));
+    async getAll() {
+        const graphData = await this.service.getAll();
+        return graphData;
     }
 
-    getItem(id) {
-        return this.service.getItem(id).pipe(map(
-            (data) => {
-                console.log(data)
-            }));
+    async getItem(id) {
+        const itemData = await this.service.getItem(id);
+        return itemData;
     }
 
     ngOnInit(): void {
-        var cy;
-        this.getAll().subscribe(_ => {
-            cy = cytoscape({
-                container: document.getElementById('cy'), // container to render in
 
-                elements: this.graphData,
+        var cy = cytoscape({
+            container: document.getElementById('cy'), // container to render in
 
-                style: style,
+            elements: this.getAll(),
 
-                layout: {
-                    name: "fcose",
-                }
+            style: style,
 
-            });
-            cy.bind('click', 'node', function (evt) {
-                console.log('node clicked: ', evt.target.id());
-                this.getItem(evt.target.id()).subscribe(_ => {
-                    console.log("test")
-                });
-            });
+            layout: {
+                name: "fcose",
+            }
+
         });
 
+        cy.on('click', 'node', (evt) => {
+            console.log('node clicked: ', evt.target.id());
+            this.getItem(evt.target.id()).then(data => console.log(data));
+        });
 
 
 
