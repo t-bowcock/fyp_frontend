@@ -24,6 +24,24 @@ const style = [
             'text-outline-opacity': 1,
             'overlay-color': '#fff'
         }
+    },
+    {
+        selector: 'node[nodeType = "Trinket"]',
+        style: {
+            'background-color': '#ffe081',
+        }
+    },
+    {
+        selector: 'node[nodeType = "Item"]',
+        style: {
+            'background-color': '#9b26af',
+        }
+    },
+    {
+        selector: 'node[nodeType = "Character"]',
+        style: {
+            'background-color': '#f79767',
+        }
     }
 ];
 

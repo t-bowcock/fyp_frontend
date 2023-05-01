@@ -29,8 +29,28 @@ export class SharedService {
         return this.http.get<any[]>(this.APIUrl + "/isaac/trinkets");
     }
 
+    getTrinket(id): Promise<any> {
+        return new Promise<any>(resolve => {
+            this.http.get<any[]>(this.APIUrl + "/isaac/trinkets/" + id).subscribe(
+                (data) => {
+                    resolve(data);
+                }
+            );
+        });
+    }
+
     getCharacterList(): Observable<any> {
         return this.http.get<any[]>(this.APIUrl + "/isaac/characters");
+    }
+
+    getCharacter(id): Promise<any> {
+        return new Promise<any>(resolve => {
+            this.http.get<any[]>(this.APIUrl + "/isaac/characters/" + id).subscribe(
+                (data) => {
+                    resolve(data);
+                }
+            );
+        });
     }
 
     getSynergyList(): Observable<any> {

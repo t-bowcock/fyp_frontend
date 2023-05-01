@@ -15,6 +15,10 @@ export class GraphComponent implements OnInit {
 
 
     constructor(private service: GraphService) { }
+    itemData: any;
+    trinketData: any;
+    characterData: any;
+    isOpen = false;
 
     async getAll() {
         const graphData = await this.service.getAll();
@@ -23,7 +27,20 @@ export class GraphComponent implements OnInit {
 
     async getItem(id) {
         const itemData = await this.service.getItem(id);
+        this.itemData = itemData
         return itemData;
+    }
+
+    async getTrinket(id) {
+        const trinketData = await this.service.getTrinket(id);
+        this.trinketData = JSON.stringify(trinketData)
+        return trinketData;
+    }
+
+    async getCharacter(id) {
+        const characterData = await this.service.getCharacter(id);
+        this.characterData = JSON.stringify(characterData)
+        return characterData;
     }
 
     ngOnInit(): void {
@@ -37,17 +54,26 @@ export class GraphComponent implements OnInit {
 
             layout: {
                 name: "fcose",
+
             }
 
         });
 
-        cy.on('click', 'node', (evt) => {
+        cy.on('click', 'node[nodeType = "Item"]', (evt) => {
             console.log('node clicked: ', evt.target.id());
             this.getItem(evt.target.id()).then(data => console.log(data));
+            this.isOpen = true
         });
 
+        cy.on('click', 'node[nodeType = "Trinket"]', (evt) => {
+            console.log('node clicked: ', evt.target.id());
+            this.getTrinket(evt.target.id()).then(data => console.log(data));
+        });
 
-
+        cy.on('click', 'node[nodeType = "Character"]', (evt) => {
+            console.log('node clicked: ', evt.target.id());
+            this.getCharacter(evt.target.id()).then(data => console.log(data));
+        });
 
     }
 }

@@ -1,1 +1,37 @@
-<div id="cy"></div>
+<div class="fill">
+    <mat-toolbar color="primary">
+        <button mat-icon-button (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>Binding of Isaac Knowledge Graph</span>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="side-nav-container fill">
+        <mat-sidenav #snav mode="over">
+            <mat-nav-list>
+                <a mat-list-item routerLink=".">Test</a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="fill">
+            <div class="grid-container">
+                <div class="fill" id="cy"></div>
+                <!-- <div class="fill" id="detail"> -->
+                <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="isOpen">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-subtitle>{{itemData.nodeType}} {{itemData.id}}</mat-card-subtitle>
+                            <mat-card-title>{{itemData.name}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>{{itemData}}</p>
+                            <mat-divider></mat-divider>
+                        </mat-card-content>
+                    </mat-card>
+                </ng-template>
+
+                <!-- </div> -->
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
