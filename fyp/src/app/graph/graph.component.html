@@ -1,37 +1,42 @@
-<div class="fill">
-    <mat-toolbar color="primary">
-        <button mat-icon-button (click)="snav.toggle()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span>Binding of Isaac Knowledge Graph</span>
-    </mat-toolbar>
+<div class="grid-container">
+    <div class="fill" id="cy"></div>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="itemIsOpen">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-subtitle>Item {{itemData.id}}</mat-card-subtitle>
+                <mat-card-title>{{itemData.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{itemData}}</p>
+                <mat-divider></mat-divider>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
 
-    <mat-sidenav-container class="side-nav-container fill">
-        <mat-sidenav #snav mode="over">
-            <mat-nav-list>
-                <a mat-list-item routerLink=".">Test</a>
-            </mat-nav-list>
-        </mat-sidenav>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="trinketIsOpen">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-subtitle>Trinket {{trinketData.id}}</mat-card-subtitle>
+                <mat-card-title>{{trinketData.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{trinketData}}</p>
+                <mat-divider></mat-divider>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
 
-        <mat-sidenav-content class="fill">
-            <div class="grid-container">
-                <div class="fill" id="cy"></div>
-                <!-- <div class="fill" id="detail"> -->
-                <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="isOpen">
-                    <mat-card>
-                        <mat-card-header>
-                            <mat-card-subtitle>{{itemData.nodeType}} {{itemData.id}}</mat-card-subtitle>
-                            <mat-card-title>{{itemData.name}}</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <p>{{itemData}}</p>
-                            <mat-divider></mat-divider>
-                        </mat-card-content>
-                    </mat-card>
-                </ng-template>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="characterIsOpen">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-subtitle>Character {{characterData.id}}</mat-card-subtitle>
+                <mat-card-title>{{characterData.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{characterData}}</p>
+                <mat-divider></mat-divider>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
 
-                <!-- </div> -->
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
 </div>

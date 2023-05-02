@@ -5,8 +5,8 @@ import { QueryComponent } from './query/query.component';
 import { GraphComponent } from './graph/graph.component';
 
 const routes: Routes = [
-    { path: 'isaac/table', component: QueryComponent },
-    { path: 'isaac/graph', component: GraphComponent },
+    { path: 'table', component: QueryComponent },
+    { path: 'graph', component: GraphComponent },
 ];
 
 @NgModule({

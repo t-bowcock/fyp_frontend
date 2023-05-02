@@ -18,7 +18,9 @@ export class GraphComponent implements OnInit {
     itemData: any;
     trinketData: any;
     characterData: any;
-    isOpen = false;
+    itemIsOpen = false;
+    trinketIsOpen = false;
+    characterIsOpen = false;
 
     async getAll() {
         const graphData = await this.service.getAll();
@@ -33,13 +35,13 @@ export class GraphComponent implements OnInit {
 
     async getTrinket(id) {
         const trinketData = await this.service.getTrinket(id);
-        this.trinketData = JSON.stringify(trinketData)
+        this.trinketData = trinketData
         return trinketData;
     }
 
     async getCharacter(id) {
         const characterData = await this.service.getCharacter(id);
-        this.characterData = JSON.stringify(characterData)
+        this.characterData = characterData
         return characterData;
     }
 
@@ -62,17 +64,25 @@ export class GraphComponent implements OnInit {
         cy.on('click', 'node[nodeType = "Item"]', (evt) => {
             console.log('node clicked: ', evt.target.id());
             this.getItem(evt.target.id()).then(data => console.log(data));
-            this.isOpen = true
+            this.itemIsOpen = true;
+            this.trinketIsOpen = false;
+            this.characterIsOpen = false;
         });
 
         cy.on('click', 'node[nodeType = "Trinket"]', (evt) => {
             console.log('node clicked: ', evt.target.id());
             this.getTrinket(evt.target.id()).then(data => console.log(data));
+            this.itemIsOpen = false;
+            this.trinketIsOpen = true;
+            this.characterIsOpen = false;
         });
 
         cy.on('click', 'node[nodeType = "Character"]', (evt) => {
             console.log('node clicked: ', evt.target.id());
             this.getCharacter(evt.target.id()).then(data => console.log(data));
+            this.itemIsOpen = false;
+            this.trinketIsOpen = false;
+            this.characterIsOpen = true;
         });
 
     }

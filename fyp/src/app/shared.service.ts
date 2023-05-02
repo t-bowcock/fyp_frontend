@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -12,12 +11,12 @@ export class SharedService {
     constructor(protected http: HttpClient) { }
 
     getItemList(): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/items");
+        return this.http.get<any[]>(this.APIUrl + "/items");
     }
 
     getItem(id): Promise<any> {
         return new Promise<any>(resolve => {
-            this.http.get<any[]>(this.APIUrl + "/isaac/items/" + id).subscribe(
+            this.http.get<any[]>(this.APIUrl + "/items/" + id).subscribe(
                 (data) => {
                     resolve(data);
                 }
@@ -26,12 +25,12 @@ export class SharedService {
     }
 
     getTrinketList(): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/trinkets");
+        return this.http.get<any[]>(this.APIUrl + "/trinkets");
     }
 
     getTrinket(id): Promise<any> {
         return new Promise<any>(resolve => {
-            this.http.get<any[]>(this.APIUrl + "/isaac/trinkets/" + id).subscribe(
+            this.http.get<any[]>(this.APIUrl + "/trinkets/" + id).subscribe(
                 (data) => {
                     resolve(data);
                 }
@@ -40,12 +39,12 @@ export class SharedService {
     }
 
     getCharacterList(): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/characters");
+        return this.http.get<any[]>(this.APIUrl + "/characters");
     }
 
     getCharacter(id): Promise<any> {
         return new Promise<any>(resolve => {
-            this.http.get<any[]>(this.APIUrl + "/isaac/characters/" + id).subscribe(
+            this.http.get<any[]>(this.APIUrl + "/characters/" + id).subscribe(
                 (data) => {
                     resolve(data);
                 }
@@ -54,16 +53,16 @@ export class SharedService {
     }
 
     getSynergyList(): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/synergies");
+        return this.http.get<any[]>(this.APIUrl + "/synergies");
     }
 
     getInteractionList(): Observable<any> {
-        return this.http.get<any[]>(this.APIUrl + "/isaac/interactions");
+        return this.http.get<any[]>(this.APIUrl + "/interactions");
     }
 
     getAll(): Promise<any> {
         return new Promise<any>(resolve => {
-            this.http.get<any[]>(this.APIUrl + "/isaac/all").subscribe(
+            this.http.get<any[]>(this.APIUrl + "/all").subscribe(
                 (data) => {
                     resolve(data);
                 }
