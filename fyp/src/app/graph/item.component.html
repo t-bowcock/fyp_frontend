@@ -2,9 +2,15 @@
     <mat-card-header>
         <mat-card-subtitle>Item {{itemData.id}}</mat-card-subtitle>
         <mat-card-title>{{itemData.name}}</mat-card-title>
+        <mat-card-subtitle>"{{itemData.quote}}"</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <p>{{itemData}}</p>
+        <p>{{itemData.description}}</p>
+        <p>Quality: <mat-icon *ngFor="let _ of [].constructor(itemData.quality)">star</mat-icon></p>
+        <h2>Effects</h2>
+        <p>{{itemData.effects}}</p>
+        <h2>Notes</h2>
+        <p>{{itemData.notes}}</p>
         <mat-divider></mat-divider>
     </mat-card-content>
 </mat-card>

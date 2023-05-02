@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { MatButtonModule } from '@angular/material/button';
 
 import { QueryComponent } from './query/query.component';
 import { QueryService } from './query/query.service';
@@ -44,7 +45,8 @@ import { CharacterComponent } from './graph/character.component';
         MatSidenavModule,
         MatListModule,
         MatCardModule,
-        OverlayModule
+        OverlayModule,
+        MatButtonModule,
     ],
     providers: [
         QueryService,

@@ -2,9 +2,14 @@
     <mat-card-header>
         <mat-card-subtitle>Trinket {{trinketData.id}}</mat-card-subtitle>
         <mat-card-title>{{trinketData.name}}</mat-card-title>
+        <mat-card-subtitle>"{{trinketData.quote}}"</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <p>{{trinketData}}</p>
+        <p>{{trinketData.description}}</p>
+        <h2>Effects</h2>
+        <p>{{trinketData.effects}}</p>
+        <h2>Notes</h2>
+        <p>{{trinketData.notes}}</p>
         <mat-divider></mat-divider>
     </mat-card-content>
 </mat-card>
