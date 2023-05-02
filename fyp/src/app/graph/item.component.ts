@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { GraphService } from './graph.service';
 
 @Component({
     selector: "item",
@@ -8,13 +7,8 @@ import { GraphService } from './graph.service';
 })
 export class ItemComponent {
 
-    itemData: any;
+    @Input() itemData!: any;
 
-    async getItem(id) {
-        const itemData = await this.service.getItem(id);
-        this.itemData = itemData
-        return itemData;
-    }
 }
 
 
