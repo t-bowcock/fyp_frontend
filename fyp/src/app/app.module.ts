@@ -19,12 +19,18 @@ import { QueryService } from './query/query.service';
 import { SharedService } from './shared.service';
 import { GraphComponent } from './graph/graph.component';
 import { GraphService } from './graph/graph.service';
+import { ItemComponent } from './graph/item.component';
+import { TrinketComponent } from './graph/trinket.component';
+import { CharacterComponent } from './graph/character.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         QueryComponent,
         GraphComponent,
+        ItemComponent,
+        TrinketComponent,
+        CharacterComponent,
     ],
     imports: [
         BrowserModule,
