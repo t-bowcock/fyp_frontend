@@ -21,6 +21,11 @@ export class GraphComponent implements OnInit {
 
     constructor(private service: GraphService, private overlay: Overlay) { }
     currentOverlay: ComponentRef<any>;
+    overlayConfig = {
+        width: '100px',
+        positionStrategy: this.overlay.position().global()
+            .right().top()
+    };
 
     async getAll() {
         const graphData = await this.service.getAll();
@@ -64,7 +69,7 @@ export class GraphComponent implements OnInit {
                     if (this.currentOverlay) {
                         this.currentOverlay.destroy()
                     }
-                    const overlayRef = this.overlay.create();
+                    const overlayRef = this.overlay.create(this.overlayConfig);
                     const portal = new ComponentPortal(ItemComponent);
                     this.currentOverlay = overlayRef.attach(portal);
                     this.currentOverlay.instance.itemData = data;
