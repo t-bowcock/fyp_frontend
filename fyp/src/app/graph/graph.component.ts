@@ -1,4 +1,4 @@
-import { Component, ComponentRef, OnInit } from '@angular/core';
+import { Component, ComponentRef, ElementRef, OnInit, ViewChild } from '@angular/core';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import { GraphService } from './graph.service';
@@ -20,12 +20,16 @@ export class GraphComponent implements OnInit {
 
 
     constructor(private service: GraphService, private overlay: Overlay) { }
+    @ViewChild('graph', { static: false }) graphDiv: ElementRef;
     currentOverlay: ComponentRef<any>;
     overlayConfig = {
-        width: '100px',
+        width: '20%',
+        panelClass: 'test',
         positionStrategy: this.overlay.position().global()
-            .right().top()
+            .right('5px').top('70px')
     };
+    search: any;
+    isOpen = true;
 
     async getAll() {
         const graphData = await this.service.getAll();
@@ -83,7 +87,7 @@ export class GraphComponent implements OnInit {
                     if (this.currentOverlay) {
                         this.currentOverlay.destroy()
                     }
-                    const overlayRef = this.overlay.create();
+                    const overlayRef = this.overlay.create(this.overlayConfig);
                     const portal = new ComponentPortal(TrinketComponent);
                     this.currentOverlay = overlayRef.attach(portal);
                     this.currentOverlay.instance.trinketData = data;
@@ -97,7 +101,7 @@ export class GraphComponent implements OnInit {
                     if (this.currentOverlay) {
                         this.currentOverlay.destroy()
                     }
-                    const overlayRef = this.overlay.create();
+                    const overlayRef = this.overlay.create(this.overlayConfig);
                     const portal = new ComponentPortal(CharacterComponent);
                     this.currentOverlay = overlayRef.attach(portal);
                     this.currentOverlay.instance.characterData = data;

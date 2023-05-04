@@ -4,14 +4,16 @@
     height: 100%;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    height: 100%;
+.test {
+    overflow: scroll;
 }
 
-.side-nav-container {
-    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-    flex: 1;
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
 }

@@ -14,6 +14,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { QueryComponent } from './query/query.component';
 import { QueryService } from './query/query.service';
@@ -47,6 +50,9 @@ import { CharacterComponent } from './graph/character.component';
         MatCardModule,
         OverlayModule,
         MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule
     ],
     providers: [
         QueryService,
