@@ -13,6 +13,10 @@ import { Observable, map, startWith } from 'rxjs';
 
 cytoscape.use(fcose);
 
+export class Node {
+    constructor(public name: string, public id: number) { }
+}
+
 @Component({
     selector: 'app-graph',
     templateUrl: './graph.component.html',
@@ -31,12 +35,12 @@ export class GraphComponent implements OnInit {
             .right('5px').top('70px')
     };
 
-    node1Control = new FormControl('');
-    node2Control = new FormControl('');
-    names1;
-    names;
-    node1Options: Observable<string[]>;
-    node2Options: Observable<string[]>;
+    node1Control = new FormControl;
+    node2Control = new FormControl;
+    node1Options: Observable<any>;
+    node2Options: Observable<any>;
+    nodes: Node[];
+    relationship;
 
     async getAll() {
         const graphData = await this.service.getAll();
@@ -63,23 +67,34 @@ export class GraphComponent implements OnInit {
         return characterData;
     }
 
-    private _filter(value: string): string[] {
-        const filterValue = value.toLowerCase();
+    filterStates(selected_node: any) {
+        return this.nodes.filter(node =>
+            node.name.toLowerCase().indexOf(selected_node.name.toLowerCase()) === 0);
+    }
 
-        return this.names.filter(option => option.toLowerCase().includes(filterValue));
+    getOptionText(option) {
+        return option.name;
+    }
+
+    Submit() {
+        console.log(this.relationship);
+        console.log(this.node1Control.value)
+        console.log(this.node2Control.value)
     }
 
     ngOnInit(): void {
         this.getAllNames().then((data) => {
-            this.names = data
-            this.node1Options = this.node1Control.valueChanges.pipe(
-                startWith(''),
-                map(value => this._filter(value || '')),
-            );
-            this.node2Options = this.node2Control.valueChanges.pipe(
-                startWith(''),
-                map(value => this._filter(value || '')),
-            );
+            this.nodes = data
+            this.node1Options = this.node1Control.valueChanges
+                .pipe(
+                    startWith(''),
+                    map(node => node ? this.filterStates(node) : this.nodes.slice())
+                );
+            this.node2Options = this.node2Control.valueChanges
+                .pipe(
+                    startWith(''),
+                    map(node => node ? this.filterStates(node) : this.nodes.slice())
+                );
         });
 
         var cy = cytoscape({
