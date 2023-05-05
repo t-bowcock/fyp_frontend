@@ -69,4 +69,14 @@ export class SharedService {
             );
         });
     }
+
+    getAllNames(): Promise<any> {
+        return new Promise<any>(resolve => {
+            this.http.get<any[]>(this.APIUrl + "/all/names").subscribe(
+                (data) => {
+                    resolve(data["names"]);
+                }
+            );
+        });
+    }
 }

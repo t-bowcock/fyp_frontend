@@ -1,11 +1,30 @@
 <div #graph class="fill" id="cy">
     <form class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Assignee</mat-label>
-            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option.name}}
+            <mat-label>Node 1</mat-label>
+            <input type="text" placeholder="Pick one" matInput [formControl]="node1Control" [matAutocomplete]="node1">
+            <mat-autocomplete autoActiveFirstOption #node1="matAutocomplete">
+                <mat-option *ngFor="let option of node1Options | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Relationship</mat-label>
+            <mat-select>
+                <mat-option value="None">Select</mat-option>
+                <mat-option value="Synergy">Synergy</mat-option>
+                <mat-option value="Interaction">Interaction</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Node 2</mat-label>
+            <input type="text" placeholder="Pick one" matInput [formControl]="node2Control" [matAutocomplete]="node2">
+            <mat-autocomplete autoActiveFirstOption #node2="matAutocomplete">
+                <mat-option *ngFor="let option of node2Options | async" [value]="option">
+                    {{option}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>

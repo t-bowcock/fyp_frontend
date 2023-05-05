@@ -8,6 +8,8 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ItemComponent } from './item.component';
 import { TrinketComponent } from './trinket.component';
 import { CharacterComponent } from './character.component';
+import { FormControl } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
 
 cytoscape.use(fcose);
 
@@ -28,12 +30,22 @@ export class GraphComponent implements OnInit {
         positionStrategy: this.overlay.position().global()
             .right('5px').top('70px')
     };
-    search: any;
-    isOpen = true;
+
+    node1Control = new FormControl('');
+    node2Control = new FormControl('');
+    names1;
+    names;
+    node1Options: Observable<string[]>;
+    node2Options: Observable<string[]>;
 
     async getAll() {
         const graphData = await this.service.getAll();
         return graphData;
+    }
+
+    async getAllNames() {
+        const nameData = await this.service.getAllNames();
+        return nameData
     }
 
     async getItem(id) {
@@ -51,7 +63,24 @@ export class GraphComponent implements OnInit {
         return characterData;
     }
 
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+
+        return this.names.filter(option => option.toLowerCase().includes(filterValue));
+    }
+
     ngOnInit(): void {
+        this.getAllNames().then((data) => {
+            this.names = data
+            this.node1Options = this.node1Control.valueChanges.pipe(
+                startWith(''),
+                map(value => this._filter(value || '')),
+            );
+            this.node2Options = this.node2Control.valueChanges.pipe(
+                startWith(''),
+                map(value => this._filter(value || '')),
+            );
+        });
 
         var cy = cytoscape({
             container: document.getElementById('cy'), // container to render in

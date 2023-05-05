@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 
 import { QueryComponent } from './query/query.component';
 import { QueryService } from './query/query.service';
@@ -41,6 +43,8 @@ import { CharacterComponent } from './graph/character.component';
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatTableModule,
         MatTabsModule,
         MatToolbarModule,
@@ -52,7 +56,8 @@ import { CharacterComponent } from './graph/character.component';
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatSelectModule
     ],
     providers: [
         QueryService,
