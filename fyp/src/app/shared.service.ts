@@ -79,4 +79,47 @@ export class SharedService {
             );
         });
     }
+
+    search(node1_id: string = '', rel: string = '', node2_id: string = ''): Promise<any> {
+        return new Promise<any>(resolve => {
+            if (node1_id == '') {
+                this.http.get<any[]>(this.APIUrl + "/all/rel_" + rel).subscribe(
+                    (data) => {
+                        resolve(data);
+                    }
+                );
+            }
+            else if (rel == '' && node2_id == '') {
+                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id).subscribe(
+                    (data) => {
+                        resolve(data);
+                    }
+                );
+            }
+            else if (rel != '' && node2_id == '') {
+                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/rel_" + rel).subscribe(
+                    (data) => {
+                        resolve(data);
+                    }
+                );
+            }
+            else if (rel == '' && node2_id != '') {
+                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/" + node2_id).subscribe(
+                    (data) => {
+                        resolve(data);
+                    }
+                );
+            }
+            else if (rel != '' && node2_id != '') {
+                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/rel_" + rel + "/" + node2_id).subscribe(
+                    (data) => {
+                        resolve(data);
+                    }
+                );
+            }
+            else {
+                console.log("shit")
+            }
+        });
+    }
 }

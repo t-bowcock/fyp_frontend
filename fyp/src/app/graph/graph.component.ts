@@ -67,6 +67,14 @@ export class GraphComponent implements OnInit {
         return characterData;
     }
 
+    async search(node1_id: string, rel: string, node2_id: string) {
+        if !(node1_id) {
+
+        }
+        const searchData = await this.service.search(node1_id, rel, node2_id);
+        return searchData;
+    }
+
     filterStates(selected_node: any) {
         return this.nodes.filter(node =>
             node.name.toLowerCase().indexOf(selected_node.name.toLowerCase()) === 0);
@@ -80,6 +88,7 @@ export class GraphComponent implements OnInit {
         console.log(this.relationship);
         console.log(this.node1Control.value)
         console.log(this.node2Control.value)
+        this.search(this.node1Control.value, this.relationship, this.node2Control.value)
     }
 
     ngOnInit(): void {
