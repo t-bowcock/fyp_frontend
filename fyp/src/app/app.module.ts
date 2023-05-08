@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { QueryComponent } from './query/query.component';
 import { QueryService } from './query/query.service';
@@ -28,6 +29,7 @@ import { GraphService } from './graph/graph.service';
 import { ItemComponent } from './graph/item.component';
 import { TrinketComponent } from './graph/trinket.component';
 import { CharacterComponent } from './graph/character.component';
+import { RelComponent } from './graph/rel.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +39,7 @@ import { CharacterComponent } from './graph/character.component';
         ItemComponent,
         TrinketComponent,
         CharacterComponent,
+        RelComponent
     ],
     imports: [
         BrowserModule,
@@ -57,7 +60,8 @@ import { CharacterComponent } from './graph/character.component';
         MatFormFieldModule,
         MatInputModule,
         MatAutocompleteModule,
-        MatSelectModule
+        MatSelectModule,
+        MatGridListModule
     ],
     providers: [
         QueryService,

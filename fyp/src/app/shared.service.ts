@@ -52,6 +52,16 @@ export class SharedService {
         });
     }
 
+    getRel(source, target): Promise<any> {
+        return new Promise<any>(resolve => {
+            this.http.get<any[]>(this.APIUrl + "/relationships/" + source + "_" + target).subscribe(
+                (data) => {
+                    resolve(data);
+                }
+            );
+        });
+    }
+
     getSynergyList(): Observable<any> {
         return this.http.get<any[]>(this.APIUrl + "/synergies");
     }
@@ -80,9 +90,9 @@ export class SharedService {
         });
     }
 
-    search(node1_id: string = '', rel: string = '', node2_id: string = ''): Promise<any> {
+    search(node1_id: string | null, rel: string | null, node2_id: string | null): Promise<any> {
         return new Promise<any>(resolve => {
-            if (node1_id == '') {
+            if (node1_id == '' && rel != '') {
                 this.http.get<any[]>(this.APIUrl + "/all/rel_" + rel).subscribe(
                     (data) => {
                         resolve(data);

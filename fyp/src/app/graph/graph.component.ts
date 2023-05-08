@@ -1,4 +1,4 @@
-import { Component, ComponentRef, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, ElementRef, OnInit, ViewChild } from '@angular/core';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import { GraphService } from './graph.service';
@@ -10,6 +10,8 @@ import { TrinketComponent } from './trinket.component';
 import { CharacterComponent } from './character.component';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { NgSwitchDefault } from '@angular/common';
+import { RelComponent } from './rel.component';
 
 cytoscape.use(fcose);
 
@@ -35,12 +37,13 @@ export class GraphComponent implements OnInit {
             .right('5px').top('70px')
     };
 
-    node1Control = new FormControl;
-    node2Control = new FormControl;
+    node1Control = new FormControl('');
+    node2Control = new FormControl('');
     node1Options: Observable<any>;
     node2Options: Observable<any>;
     nodes: Node[];
-    relationship;
+    relationship = '';
+    cy;
 
     async getAll() {
         const graphData = await this.service.getAll();
@@ -67,28 +70,39 @@ export class GraphComponent implements OnInit {
         return characterData;
     }
 
-    async search(node1_id: string, rel: string, node2_id: string) {
-        if !(node1_id) {
+    async getRel(source, target) {
+        const relData = await this.service.getRel(source, target);
+        return relData;
+    }
 
-        }
+    async search(node1_id: string | null, rel: string | null, node2_id: string | null) {
         const searchData = await this.service.search(node1_id, rel, node2_id);
         return searchData;
     }
 
     filterStates(selected_node: any) {
+        if (typeof (selected_node) === "string") {
+            return this.nodes.filter(node =>
+                node.name.toLowerCase().indexOf(selected_node.toLowerCase()) === 0);
+        }
         return this.nodes.filter(node =>
-            node.name.toLowerCase().indexOf(selected_node.name.toLowerCase()) === 0);
+            node.id == selected_node);
     }
 
-    getOptionText(option) {
-        return option.name;
+    getOptionText(id) {
+        if (!id) {
+            return ''
+        }
+        return this.nodes.filter(node =>
+            node.id == id)[0].name;
     }
 
     Submit() {
-        console.log(this.relationship);
-        console.log(this.node1Control.value)
-        console.log(this.node2Control.value)
-        this.search(this.node1Control.value, this.relationship, this.node2Control.value)
+        this.search(this.node1Control.value, this.relationship, this.node2Control.value).then((data) => {
+            this.cy.elements().remove();
+            this.cy.add(data);
+            this.cy.layout({ name: "fcose" }).run();
+        });
     }
 
     ngOnInit(): void {
@@ -106,7 +120,7 @@ export class GraphComponent implements OnInit {
                 );
         });
 
-        var cy = cytoscape({
+        this.cy = cytoscape({
             container: document.getElementById('cy'), // container to render in
 
             elements: this.getAll(),
@@ -120,7 +134,7 @@ export class GraphComponent implements OnInit {
 
         });
 
-        cy.on('select', 'node[nodeType = "Item"]', (evt) => {
+        this.cy.on('select', 'node[nodeType = "Item"]', (evt) => {
             this.getItem(evt.target.id()).then(
                 (data) => {
                     if (this.currentOverlay) {
@@ -134,8 +148,8 @@ export class GraphComponent implements OnInit {
             );
         });
 
-        cy.on('click', 'node[nodeType = "Trinket"]', (evt) => {
-            this.getItem(evt.target.id()).then(
+        this.cy.on('click', 'node[nodeType = "Trinket"]', (evt) => {
+            this.getTrinket(evt.target.id()).then(
                 (data) => {
                     if (this.currentOverlay) {
                         this.currentOverlay.destroy()
@@ -148,7 +162,7 @@ export class GraphComponent implements OnInit {
             );
         });
 
-        cy.on('click', 'node[nodeType = "Character"]', (evt) => {
+        this.cy.on('click', 'node[nodeType = "Character"]', (evt) => {
             this.getCharacter(evt.target.id()).then(
                 (data) => {
                     if (this.currentOverlay) {
@@ -158,6 +172,20 @@ export class GraphComponent implements OnInit {
                     const portal = new ComponentPortal(CharacterComponent);
                     this.currentOverlay = overlayRef.attach(portal);
                     this.currentOverlay.instance.characterData = data;
+                }
+            );
+        });
+
+        this.cy.on('click', 'edge', (evt) => {
+            this.getRel(evt.target.data().source, evt.target.data().target).then(
+                (data) => {
+                    if (this.currentOverlay) {
+                        this.currentOverlay.destroy()
+                    }
+                    const overlayRef = this.overlay.create(this.overlayConfig);
+                    const portal = new ComponentPortal(RelComponent);
+                    this.currentOverlay = overlayRef.attach(portal);
+                    this.currentOverlay.instance.relData = data;
                 }
             );
         });
