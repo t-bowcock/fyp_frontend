@@ -93,7 +93,7 @@ export class SharedService {
     search(node1_id: string | null, rel: string | null, node2_id: string | null): Promise<any> {
         return new Promise<any>(resolve => {
             if (node1_id == '' && rel != '') {
-                this.http.get<any[]>(this.APIUrl + "/all/rel_" + rel).subscribe(
+                this.http.get<any[]>(this.APIUrl + "/all/rel/" + rel).subscribe(
                     (data) => {
                         resolve(data);
                     }
@@ -107,7 +107,7 @@ export class SharedService {
                 );
             }
             else if (rel != '' && node2_id == '') {
-                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/rel_" + rel).subscribe(
+                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/rel/" + rel).subscribe(
                     (data) => {
                         resolve(data);
                     }
@@ -121,14 +121,14 @@ export class SharedService {
                 );
             }
             else if (rel != '' && node2_id != '') {
-                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/rel_" + rel + "/" + node2_id).subscribe(
+                this.http.get<any[]>(this.APIUrl + "/all/" + node1_id + "/" + rel + "/" + node2_id).subscribe(
                     (data) => {
                         resolve(data);
                     }
                 );
             }
             else {
-                console.log("shit")
+                console.log("incorrect inputs")
             }
         });
     }

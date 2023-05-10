@@ -10,7 +10,6 @@ import { TrinketComponent } from './trinket.component';
 import { CharacterComponent } from './character.component';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
-import { NgSwitchDefault } from '@angular/common';
 import { RelComponent } from './rel.component';
 
 cytoscape.use(fcose);
