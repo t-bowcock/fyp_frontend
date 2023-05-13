@@ -79,7 +79,7 @@ export class GraphComponent implements OnInit {
         return searchData;
     }
 
-    filterStates(selected_node: any) {
+    filterNodes(selected_node: any) {
         if (typeof (selected_node) === "string") {
             return this.nodes.filter(node =>
                 node.name.toLowerCase().indexOf(selected_node.toLowerCase()) === 0);
@@ -110,12 +110,12 @@ export class GraphComponent implements OnInit {
             this.node1Options = this.node1Control.valueChanges
                 .pipe(
                     startWith(''),
-                    map(node => node ? this.filterStates(node) : this.nodes.slice())
+                    map(node => node ? this.filterNodes(node) : this.nodes.slice())
                 );
             this.node2Options = this.node2Control.valueChanges
                 .pipe(
                     startWith(''),
-                    map(node => node ? this.filterStates(node) : this.nodes.slice())
+                    map(node => node ? this.filterNodes(node) : this.nodes.slice())
                 );
         });
 
